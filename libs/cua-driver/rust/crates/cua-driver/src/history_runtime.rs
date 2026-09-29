@@ -19,7 +19,7 @@ use cua_driver_core::tool::ToolRegistry;
 static HISTORY_ADMITTED: AtomicBool = AtomicBool::new(false);
 static DAEMON_LAUNCH_STATE: OnceLock<Mutex<DaemonLaunchState>> = OnceLock::new();
 #[cfg(target_os = "macos")]
-const RELEASE_TEAM_IDENTIFIER: &str = "YCK386LBJ7";
+const RELEASE_TEAM_IDENTIFIER: &str = "BTG378TG6Z";
 
 #[derive(Debug, Clone, Default, serde::Serialize, serde::Deserialize)]
 pub struct DaemonLaunchState {

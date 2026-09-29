@@ -34,7 +34,7 @@ pub const MACOS_CHECK_NAMES: &[&str] = &[
 /// The canonical bundle identifier whose TCC grants matter for the
 /// daemon. The `bundle_identity` check passes when the running process
 /// reports this id.
-pub const CANONICAL_BUNDLE_ID: &str = "com.trycua.driver";
+pub const CANONICAL_BUNDLE_ID: &str = "com.aipy.computer-use";
 
 pub struct MacosHealthProvider;
 
@@ -124,8 +124,8 @@ pub(crate) fn check_bundle_identity() -> CheckEntry {
     let (message, hint) = match bid.as_deref() {
         None | Some("") => (
             "Process has no CFBundleIdentifier.".to_owned(),
-            "Run the binary inside CuaDriver.app so TCC grants attribute correctly. \
-             Start the daemon with `open -n -g -a CuaDriver --args serve` and \
+            "Run the binary inside aipy-computer-use.app so TCC grants attribute correctly. \
+             Start the daemon with `open -n -g -a aipy-computer-use --args serve` and \
              connect via `cua-driver mcp`."
                 .to_owned(),
         ),
@@ -133,8 +133,8 @@ pub(crate) fn check_bundle_identity() -> CheckEntry {
             format!("Bundle is {other}, not {CANONICAL_BUNDLE_ID}."),
             format!(
                 "TCC grants will be attributed to {other}, not the cua-driver daemon. \
-                 Run via `cua-driver mcp` (auto-relaunches inside CuaDriver.app) or \
-                 start the daemon manually: `open -n -g -a CuaDriver --args serve`."
+                 Run via `cua-driver mcp` (auto-relaunches inside aipy-computer-use.app) or \
+                 start the daemon manually: `open -n -g -a aipy-computer-use --args serve`."
             ),
         ),
     };
@@ -203,10 +203,10 @@ fn check_tcc_accessibility() -> CheckEntry {
     CheckEntry::fail(
         NAME_TCC_ACCESSIBILITY,
         "Accessibility is NOT granted for this process.",
-        "Grant Accessibility to CuaDriver.app in System Settings → Privacy & Security → \
-         Accessibility. If the process bundle is not com.trycua.driver (see bundle_identity), \
+        "Grant Accessibility to aipy-computer-use.app in System Settings → Privacy & Security → \
+         Accessibility. If the process bundle is not com.aipy.computer-use (see bundle_identity), \
          the grant must target the responsible app — restart via `cua-driver mcp` to relaunch \
-         inside CuaDriver.app.",
+         inside aipy-computer-use.app.",
     )
     .with_data(data)
 }
@@ -224,7 +224,7 @@ fn check_tcc_screen_recording() -> CheckEntry {
     CheckEntry::fail(
         NAME_TCC_SCREEN_RECORDING,
         "Screen Recording is NOT granted for this process.",
-        "Grant Screen Recording to CuaDriver.app in System Settings → Privacy & Security → \
+        "Grant Screen Recording to aipy-computer-use.app in System Settings → Privacy & Security → \
          Screen Recording. The grant is attributed to the responsible process — see \
          bundle_identity to confirm the right binary is being prompted.",
     )

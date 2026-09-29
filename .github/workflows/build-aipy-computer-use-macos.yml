@@ -1,0 +1,77 @@
+name: Build aipy-computer-use for macOS
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: App version stamped into Info.plist
+        required: true
+        default: 0.1.0
+
+permissions:
+  contents: read
+
+jobs:
+  build-macos-universal:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: libs/cua-driver/typescript/package-lock.json
+
+      - uses: dtolnay/rust-toolchain@4716b85f2fac3e324e64fa2810f6b5c3905760a5
+        with:
+          targets: aarch64-apple-darwin, x86_64-apple-darwin
+
+      - name: Build arm64
+        working-directory: libs/cua-driver/rust
+        env:
+          MACOSX_DEPLOYMENT_TARGET: "13.0"
+        run: cargo build --locked -p cua-driver -p cursor-theme-cli --release --target aarch64-apple-darwin
+
+      - name: Build x86_64
+        working-directory: libs/cua-driver/rust
+        env:
+          MACOSX_DEPLOYMENT_TARGET: "13.0"
+        run: cargo build --locked -p cua-driver -p cursor-theme-cli --release --target x86_64-apple-darwin
+
+      - name: Create universal binaries
+        working-directory: libs/cua-driver/rust
+        run: |
+          mkdir -p release/universal
+          lipo -create \
+            target/aarch64-apple-darwin/release/cua-driver \
+            target/x86_64-apple-darwin/release/cua-driver \
+            -output release/universal/cua-driver
+          lipo -create \
+            target/aarch64-apple-darwin/release/cua-cursor-theme \
+            target/x86_64-apple-darwin/release/cua-cursor-theme \
+            -output release/universal/cua-cursor-theme
+
+      - name: Assemble unsigned app
+        working-directory: libs/cua-driver/rust
+        env:
+          APP_VERSION: ${{ inputs.version }}
+        run: |
+          APP=release/aipy-computer-use.app
+          mkdir -p "$APP"
+          cp -R scripts/CuaDriverBundle/Contents "$APP/Contents"
+          cp release/universal/cua-driver "$APP/Contents/MacOS/cua-driver"
+          cp release/universal/cua-cursor-theme "$APP/Contents/MacOS/cua-cursor-theme"
+          chmod +x "$APP/Contents/MacOS/cua-driver" "$APP/Contents/MacOS/cua-cursor-theme"
+          plutil -replace CFBundleShortVersionString -string "$APP_VERSION" "$APP/Contents/Info.plist"
+          plutil -replace CFBundleVersion -string "$APP_VERSION" "$APP/Contents/Info.plist"
+          rm -f "$APP/Contents/MacOS/.gitkeep"
+          tar -C release -czf aipy-computer-use-unsigned-macos-universal.tar.gz aipy-computer-use.app
+
+      - name: Upload unsigned app
+        uses: actions/upload-artifact@v4
+        with:
+          name: aipy-computer-use-unsigned-macos-universal
+          path: libs/cua-driver/rust/aipy-computer-use-unsigned-macos-universal.tar.gz
+          if-no-files-found: error
+          retention-days: 14

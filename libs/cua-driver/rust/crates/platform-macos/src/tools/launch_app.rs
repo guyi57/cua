@@ -499,7 +499,10 @@ impl Tool for LaunchAppTool {
 }
 
 fn is_cua_driver_bundle_id(bundle_id: &str) -> bool {
-    matches!(bundle_id, "com.trycua.driver" | "com.trycua.driver.local")
+    matches!(
+        bundle_id,
+        "com.aipy.computer-use" | "com.aipy.computer-use.local"
+    )
 }
 
 fn protected_host_launch_refusal() -> ToolResult {

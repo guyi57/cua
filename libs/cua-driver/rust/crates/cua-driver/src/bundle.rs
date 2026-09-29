@@ -12,8 +12,8 @@ pub const LOCAL_CLI_NAME: &str = "cua-driver-local";
 
 pub const RELEASE_APP_NAME: &str = "aipy-computer-use";
 pub const LOCAL_APP_NAME: &str = "aipy-computer-use-local";
-pub const RELEASE_BUNDLE_ID: &str = "com.aipy.computer-use";
-pub const LOCAL_BUNDLE_ID: &str = "com.aipy.computer-use.local";
+pub const RELEASE_BUNDLE_ID: &str = "com.knownsec.aipy.computer-use";
+pub const LOCAL_BUNDLE_ID: &str = "com.knownsec.aipy.computer-use.local";
 
 pub(crate) fn path_is_local(path: &Path) -> bool {
     let file_name = path

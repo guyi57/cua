@@ -37,7 +37,7 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleIdentifier</key>
-    <string>com.aipy.computer-use</string>
+    <string>com.knownsec.aipy.computer-use</string>
     <key>CFBundleName</key>
     <string>aipy-computer-use</string>
     <key>CFBundleDisplayName</key>

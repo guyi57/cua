@@ -42,9 +42,9 @@ pub async fn request_from_launchservices_host(probe_direct_capture: bool) -> Too
 
 fn driver_bundle_id_for_executable(executable: &str) -> Option<&'static str> {
     if executable.contains("/aipy-computer-use-local.app/Contents/MacOS/") {
-        Some("com.aipy.computer-use.local")
+        Some("com.knownsec.aipy.computer-use.local")
     } else if executable.contains("/aipy-computer-use.app/Contents/MacOS/") {
-        Some("com.aipy.computer-use")
+        Some("com.knownsec.aipy.computer-use")
     } else {
         None
     }
@@ -68,8 +68,8 @@ fn direct_capture_evidence_store_for_identity(
     }
     let bundle_id = driver_bundle_id_for_executable(executable)?;
     let state_directory = match bundle_id {
-        "com.aipy.computer-use.local" => ".cua-driver-local",
-        "com.aipy.computer-use" => ".cua-driver",
+        "com.knownsec.aipy.computer-use.local" => ".cua-driver-local",
+        "com.knownsec.aipy.computer-use" => ".cua-driver",
         _ => return None,
     };
     Some(DirectCaptureEvidenceStore::new(
@@ -478,7 +478,7 @@ impl Tool for CheckPermissionsTool {
         if is_caller {
             summary.push_str(
                 "\nℹ️  Status reflects the launching app's TCC identity, not the CuaDriver \
-                 daemon (com.aipy.computer-use). See `source` for details.",
+                 daemon (com.knownsec.aipy.computer-use). See `source` for details.",
             );
         }
 

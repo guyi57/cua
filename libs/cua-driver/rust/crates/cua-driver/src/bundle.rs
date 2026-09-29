@@ -10,10 +10,10 @@ use std::path::Path;
 pub const RELEASE_CLI_NAME: &str = "cua-driver";
 pub const LOCAL_CLI_NAME: &str = "cua-driver-local";
 
-pub const RELEASE_APP_NAME: &str = "CuaDriver";
-pub const LOCAL_APP_NAME: &str = "CuaDriverLocal";
-pub const RELEASE_BUNDLE_ID: &str = "com.trycua.driver";
-pub const LOCAL_BUNDLE_ID: &str = "com.trycua.driver.local";
+pub const RELEASE_APP_NAME: &str = "aipy-computer-use";
+pub const LOCAL_APP_NAME: &str = "aipy-computer-use-local";
+pub const RELEASE_BUNDLE_ID: &str = "com.aipy.computer-use";
+pub const LOCAL_BUNDLE_ID: &str = "com.aipy.computer-use.local";
 
 pub(crate) fn path_is_local(path: &Path) -> bool {
     let file_name = path
@@ -24,7 +24,9 @@ pub(crate) fn path_is_local(path: &Path) -> bool {
         || file_name == format!("{LOCAL_CLI_NAME}.exe")
         || path
             .components()
-            .any(|component| component.as_os_str().to_str() == Some("CuaDriverLocal.app"))
+            .any(|component| {
+                component.as_os_str().to_str() == Some("aipy-computer-use-local.app")
+            })
 }
 
 /// Whether this process is the explicitly-installed source-build product.
@@ -106,8 +108,8 @@ pub fn is_executable_inside_cuadriver_app() -> bool {
         .and_then(|path| std::fs::canonicalize(path).ok())
         .is_some_and(|path| {
             path.to_str().is_some_and(|path| {
-                path.contains("/CuaDriver.app/Contents/MacOS/")
-                    || path.contains("/CuaDriverLocal.app/Contents/MacOS/")
+                path.contains("/aipy-computer-use.app/Contents/MacOS/")
+                    || path.contains("/aipy-computer-use-local.app/Contents/MacOS/")
             })
         })
 }

@@ -37,11 +37,11 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleIdentifier</key>
-    <string>com.trycua.driver</string>
+    <string>com.aipy.computer-use</string>
     <key>CFBundleName</key>
-    <string>Cua Driver</string>
+    <string>aipy-computer-use</string>
     <key>CFBundleDisplayName</key>
-    <string>Cua Driver</string>
+    <string>aipy-computer-use</string>
     <key>CFBundleExecutable</key>
     <string>cua-driver</string>
     <!-- Bundle icon shown in Finder / Launchpad / Get Info. Resolves to
@@ -72,9 +72,9 @@
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>NSScreenCaptureUsageDescription</key>
-    <string>Cua Driver captures the screen so agents can see and interact with the interface you ask them to control.</string>
+    <string>aipy-computer-use captures the screen so agents can see and interact with the interface you ask them to control.</string>
     <key>NSAppleEventsUsageDescription</key>
-    <string>Cua Driver uses Automation only when a requested action needs to communicate with another app.</string>
+    <string>aipy-computer-use uses Automation only when a requested action needs to communicate with another app.</string>
     <key>NSSupportsAutomaticTermination</key>
     <true/>
 </dict>

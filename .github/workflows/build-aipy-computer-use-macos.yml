@@ -1,6 +1,12 @@
 name: Build aipy-computer-use for macOS
 
 on:
+  push:
+    branches:
+      - codex/aipy-computer-use-branding
+    paths:
+      - .github/workflows/build-aipy-computer-use-macos.yml
+      - libs/cua-driver/**
   workflow_dispatch:
     inputs:
       version:

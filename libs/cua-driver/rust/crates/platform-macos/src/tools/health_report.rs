@@ -34,7 +34,7 @@ pub const MACOS_CHECK_NAMES: &[&str] = &[
 /// The canonical bundle identifier whose TCC grants matter for the
 /// daemon. The `bundle_identity` check passes when the running process
 /// reports this id.
-pub const CANONICAL_BUNDLE_ID: &str = "com.aipy.computer-use";
+pub const CANONICAL_BUNDLE_ID: &str = "com.knownsec.aipy.computer-use";
 
 pub struct MacosHealthProvider;
 
@@ -204,7 +204,7 @@ fn check_tcc_accessibility() -> CheckEntry {
         NAME_TCC_ACCESSIBILITY,
         "Accessibility is NOT granted for this process.",
         "Grant Accessibility to aipy-computer-use.app in System Settings → Privacy & Security → \
-         Accessibility. If the process bundle is not com.aipy.computer-use (see bundle_identity), \
+         Accessibility. If the process bundle is not com.knownsec.aipy.computer-use (see bundle_identity), \
          the grant must target the responsible app — restart via `cua-driver mcp` to relaunch \
          inside aipy-computer-use.app.",
     )

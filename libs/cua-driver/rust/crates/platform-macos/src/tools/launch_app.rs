@@ -501,7 +501,7 @@ impl Tool for LaunchAppTool {
 fn is_cua_driver_bundle_id(bundle_id: &str) -> bool {
     matches!(
         bundle_id,
-        "com.aipy.computer-use" | "com.aipy.computer-use.local"
+        "com.knownsec.aipy.computer-use" | "com.knownsec.aipy.computer-use.local"
     )
 }
 

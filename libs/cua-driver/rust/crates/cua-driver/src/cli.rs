@@ -542,7 +542,7 @@ pub fn parse_command() -> Command {
         println!("permissions options (macOS):");
         println!("  cua-driver permissions status   Report Accessibility + Screen Recording status. Read-only (no prompt).");
         println!("                                  Answers via a running daemon, so the result carries the CuaDriver");
-        println!("                                  identity (com.aipy.computer-use). If no daemon is running it reports");
+        println!("                                  identity (com.knownsec.aipy.computer-use). If no daemon is running it reports");
         println!("                                  `unknown` rather than your terminal's grants. Add --json for the payload.");
         println!("  cua-driver permissions grant    Launch CuaDriver via LaunchServices so dialogs attribute to the app,");
         println!("                                  explain and request Accessibility, Screen Recording, and Tahoe's");
@@ -4558,9 +4558,9 @@ fn diagnose_tcc_db_section() -> String {
     let home = std::env::var("HOME").unwrap_or_else(|_| "/tmp".into());
     let db = format!("{home}/Library/Application Support/com.apple.TCC/TCC.db");
     let sql = "SELECT service, client, client_type, auth_value, auth_reason, \
-               hex(csreq) AS csreq_hex FROM access WHERE client='com.aipy.computer-use';";
+               hex(csreq) AS csreq_hex FROM access WHERE client='com.knownsec.aipy.computer-use';";
 
-    let mut lines = vec!["## tcc database rows for com.aipy.computer-use".to_owned()];
+    let mut lines = vec!["## tcc database rows for com.knownsec.aipy.computer-use".to_owned()];
     lines.push(format!(
         "(reading {db} — best-effort; system TCC DB requires FDA)"
     ));

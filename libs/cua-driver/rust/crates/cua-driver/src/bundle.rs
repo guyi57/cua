@@ -7,7 +7,7 @@
 
 use std::path::Path;
 
-pub const RELEASE_CLI_NAME: &str = "cua-driver";
+pub const RELEASE_CLI_NAME: &str = "Aipy Computer Use";
 pub const LOCAL_CLI_NAME: &str = "cua-driver-local";
 
 pub const RELEASE_APP_NAME: &str = "aipy-computer-use";
@@ -66,7 +66,7 @@ pub fn uia_executable_name() -> &'static str {
     if is_local_installation() {
         "cua-driver-uia-local.exe"
     } else {
-        "cua-driver-uia.exe"
+        "Aipy Computer Use UIA.exe"
     }
 }
 
@@ -75,7 +75,7 @@ pub fn autostart_task_name() -> &'static str {
     if is_local_installation() {
         "cua-driver-local-serve"
     } else {
-        "cua-driver-serve"
+        "Aipy Computer Use"
     }
 }
 

@@ -1,0 +1,69 @@
+name: Build Aipy Computer Use for Windows
+
+on:
+  push:
+    branches:
+      - codex/aipy-computer-use-branding
+    paths:
+      - .github/workflows/build-aipy-computer-use-windows.yml
+      - libs/cua-driver/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows-x64:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@4716b85f2fac3e324e64fa2810f6b5c3905760a5
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            libs/cua-driver/rust/target
+          key: aipy-computer-use-windows-x64-${{ hashFiles('libs/cua-driver/rust/Cargo.lock', 'libs/cua-driver/rust/**/Cargo.toml') }}
+          restore-keys: |
+            aipy-computer-use-windows-x64-
+
+      - name: Build native Windows binaries
+        working-directory: libs/cua-driver/rust
+        run: >-
+          cargo build --locked
+          -p cua-driver
+          -p cua-driver-uia
+          -p cua-driver-sdk
+          --release
+          --target x86_64-pc-windows-msvc
+
+      - name: Assemble unsigned Windows package
+        working-directory: libs/cua-driver/rust
+        shell: pwsh
+        run: |
+          $target = "target/x86_64-pc-windows-msvc/release"
+          $stage = "release/Aipy Computer Use Windows x64"
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+
+          Copy-Item "$target/cua-driver.exe" "$stage/Aipy Computer Use.exe"
+          Copy-Item "$target/cua-driver-uia.exe" "$stage/Aipy Computer Use UIA.exe"
+          Copy-Item "$target/cua_driver_sdk.dll" "$stage/cua_driver_sdk.dll"
+          Copy-Item "../../../LICENSE.md" "$stage/LICENSE"
+
+          Compress-Archive `
+            -Path $stage `
+            -DestinationPath "release/aipy-computer-use-unsigned-windows-x64.zip" `
+            -Force
+
+      - name: Upload unsigned Windows package
+        uses: actions/upload-artifact@v4
+        with:
+          name: aipy-computer-use-unsigned-windows-x64
+          path: libs/cua-driver/rust/release/aipy-computer-use-unsigned-windows-x64.zip
+          if-no-files-found: error
+          retention-days: 14

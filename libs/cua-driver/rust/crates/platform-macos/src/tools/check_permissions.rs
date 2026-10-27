@@ -41,9 +41,9 @@ pub async fn request_from_launchservices_host(probe_direct_capture: bool) -> Too
 }
 
 fn driver_bundle_id_for_executable(executable: &str) -> Option<&'static str> {
-    if executable.contains("/aipy-computer-use-local.app/Contents/MacOS/") {
+    if executable.contains("/Aipy Computer Use Local.app/Contents/MacOS/") {
         Some("com.knownsec.aipy.computer-use.local")
-    } else if executable.contains("/aipy-computer-use.app/Contents/MacOS/") {
+    } else if executable.contains("/Aipy Computer Use.app/Contents/MacOS/") {
         Some("com.knownsec.aipy.computer-use")
     } else {
         None

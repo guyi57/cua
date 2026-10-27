@@ -3,7 +3,7 @@ name: Build aipy-computer-use for macOS
 on:
   push:
     branches:
-      - codex/aipy-computer-use-branding
+      - codex/aipy-computer-use-macos-latest
     paths:
       - .github/workflows/build-aipy-computer-use-macos.yml
       - libs/cua-driver/**
@@ -61,9 +61,10 @@ jobs:
       - name: Assemble unsigned app
         working-directory: libs/cua-driver/rust
         env:
-          APP_VERSION: ${{ inputs.version }}
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
-          APP=release/aipy-computer-use.app
+          APP_VERSION="${INPUT_VERSION:-$(cat VERSION)}"
+          APP="release/Aipy Computer Use.app"
           mkdir -p "$APP"
           cp -R scripts/CuaDriverBundle/Contents "$APP/Contents"
           cp release/universal/cua-driver "$APP/Contents/MacOS/cua-driver"
@@ -72,7 +73,7 @@ jobs:
           plutil -replace CFBundleShortVersionString -string "$APP_VERSION" "$APP/Contents/Info.plist"
           plutil -replace CFBundleVersion -string "$APP_VERSION" "$APP/Contents/Info.plist"
           rm -f "$APP/Contents/MacOS/.gitkeep"
-          tar -C release -czf aipy-computer-use-unsigned-macos-universal.tar.gz aipy-computer-use.app
+          tar -C release -czf aipy-computer-use-unsigned-macos-universal.tar.gz "Aipy Computer Use.app"
 
       - name: Upload unsigned app
         uses: actions/upload-artifact@v4

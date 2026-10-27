@@ -4502,7 +4502,7 @@ fn diagnose_install_layout_section() -> String {
     let home = std::env::var("HOME").unwrap_or_else(|_| "/tmp".into());
     let mut lines = vec!["## install layout".to_owned()];
 
-    let app_path = "/Applications/aipy-computer-use.app";
+    let app_path = "/Applications/Aipy Computer Use.app";
     let app_exists = std::path::Path::new(app_path).exists();
     lines.push(format!("bundle:  {app_path}   exists={app_exists}"));
     if app_exists {
@@ -4544,7 +4544,7 @@ fn diagnose_install_layout_section() -> String {
         }
     }
 
-    let stale = format!("{home}/Applications/aipy-computer-use.app");
+    let stale = format!("{home}/Applications/Aipy Computer Use.app");
     if std::path::Path::new(&stale).exists() {
         lines.push(format!(
             "stale:   {stale}   \u{2190} old install-local.sh path, consider removing"

@@ -10,8 +10,8 @@ use std::path::Path;
 pub const RELEASE_CLI_NAME: &str = "cua-driver";
 pub const LOCAL_CLI_NAME: &str = "cua-driver-local";
 
-pub const RELEASE_APP_NAME: &str = "aipy-computer-use";
-pub const LOCAL_APP_NAME: &str = "aipy-computer-use-local";
+pub const RELEASE_APP_NAME: &str = "Aipy Computer Use";
+pub const LOCAL_APP_NAME: &str = "Aipy Computer Use Local";
 pub const RELEASE_BUNDLE_ID: &str = "com.knownsec.aipy.computer-use";
 pub const LOCAL_BUNDLE_ID: &str = "com.knownsec.aipy.computer-use.local";
 
@@ -25,7 +25,7 @@ pub(crate) fn path_is_local(path: &Path) -> bool {
         || path
             .components()
             .any(|component| {
-                component.as_os_str().to_str() == Some("aipy-computer-use-local.app")
+                component.as_os_str().to_str() == Some("Aipy Computer Use Local.app")
             })
 }
 
@@ -108,8 +108,8 @@ pub fn is_executable_inside_cuadriver_app() -> bool {
         .and_then(|path| std::fs::canonicalize(path).ok())
         .is_some_and(|path| {
             path.to_str().is_some_and(|path| {
-                path.contains("/aipy-computer-use.app/Contents/MacOS/")
-                    || path.contains("/aipy-computer-use-local.app/Contents/MacOS/")
+                path.contains("/Aipy Computer Use.app/Contents/MacOS/")
+                    || path.contains("/Aipy Computer Use Local.app/Contents/MacOS/")
             })
         })
 }

@@ -39,9 +39,9 @@
     <key>CFBundleIdentifier</key>
     <string>com.knownsec.aipy.computer-use</string>
     <key>CFBundleName</key>
-    <string>aipy-computer-use</string>
+    <string>Aipy Computer Use</string>
     <key>CFBundleDisplayName</key>
-    <string>aipy-computer-use</string>
+    <string>Aipy Computer Use</string>
     <key>CFBundleExecutable</key>
     <string>cua-driver</string>
     <!-- Bundle icon shown in Finder / Launchpad / Get Info. Resolves to
@@ -72,9 +72,9 @@
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>NSScreenCaptureUsageDescription</key>
-    <string>aipy-computer-use captures the screen so agents can see and interact with the interface you ask them to control.</string>
+    <string>Aipy Computer Use captures the screen so agents can see and interact with the interface you ask them to control.</string>
     <key>NSAppleEventsUsageDescription</key>
-    <string>aipy-computer-use uses Automation only when a requested action needs to communicate with another app.</string>
+    <string>Aipy Computer Use uses Automation only when a requested action needs to communicate with another app.</string>
     <key>NSSupportsAutomaticTermination</key>
     <true/>
 </dict>

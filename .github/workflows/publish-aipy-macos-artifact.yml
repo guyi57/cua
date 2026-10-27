@@ -1,0 +1,37 @@
+name: Publish Aipy macOS unsigned artifact
+
+on:
+  push:
+    branches:
+      - codex/aipy-computer-use-macos-latest
+    paths:
+      - .github/workflows/publish-aipy-macos-artifact.yml
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      SOURCE_RUN_ID: "40440915321"
+      RELEASE_TAG: aipy-macos-0.30.4-build-40440915321
+    steps:
+      - name: Download unsigned artifact from successful build
+        run: |
+          gh run download "$SOURCE_RUN_ID" \
+            --repo "$GITHUB_REPOSITORY" \
+            --name aipy-computer-use-unsigned-macos-universal \
+            --dir artifact
+
+      - name: Publish public prerelease asset
+        run: |
+          gh release create "$RELEASE_TAG" \
+            artifact/aipy-computer-use-unsigned-macos-universal.tar.gz \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Aipy Computer Use macOS 0.30.4 unsigned build" \
+            --notes "Unsigned universal macOS build from Actions run $SOURCE_RUN_ID. Sign and notarize locally before distribution." \
+            --prerelease
